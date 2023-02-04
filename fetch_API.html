@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>JOKES</title>
+  </head>
+  <body>
+    <div class="container">
+      <h3>Endless Jokes via Fetch API 🤣😂</h3>
+      <div id="jokes">
+        Hi there ! Interesting Jokes are on the way, Loading....
+      </div>
+      <br />
+      <button id="btn-next">Next Joke</button>
+    </div>
+    <script>
+      let jokeRef = document.getElementById("jokes");
+      let btnRef = document.getElementById("btn-next");
+
+      // To Convert HTML based API to JSON
+      const setHeader = {
+        headers: {
+          Accept: "application/JSON",
+        },
+      };
+
+      const genJokes = () => {
+        fetch("https://icanhazdadjoke.com/", setHeader)
+          .then((res) => res.json())
+          .then((data) => {
+            jokeRef.innerHTML = data.joke;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      };
+
+      btnRef.addEventListener("click", genJokes);
+      //To display jokes on first load
+      genJokes();
+    </script>
+  </body>
+</html>
